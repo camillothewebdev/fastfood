@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Panier - PIZZA ZONE</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #fff8f0;
+      padding: 20px;
+    }
+    h1 {
+      color: #e74c3c;
+    }
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+      width: 90%;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+    }
+    th {
+      background-color: #f9c6b2;
+    }
+    .total {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .btn {
+      margin: 10px;
+      padding: 10px 20px;
+      background: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #1e8449;
+    }
+    .vider {
+      background: #c0392b;
+    }
+    .vider:hover {
+      background: #a93226;
+    }
+    .paiement {
+      margin-top: 30px;
+      font-size: 18px;
+    }
+    select {
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🛒 Votre Panier</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Article</th>
+        <th>Prix ($)</th>
+      </tr>
+    </thead>
+    <tbody id="liste-panier"></tbody>
+  </table>
+
+  <div class="total" id="total"></div>
+
+  <div class="paiement">
+    <p>Choisir le mode de paiement :</p>
+    <select id="modePaiement" onchange="afficherOptionsPaiement()">
+      <option value="">-- Sélectionner --</option>
+      <option value="mobile">Mobile Money</option>
+      <option value="bancaire">Carte Bancaire</option>
+      <option value="livraison">Espèces à la livraison</option>
+    </select>
+
+    <div id="optionsPaiement"></div>
+  </div>
+
+  <div>
+    <button class="btn" onclick="window.location.href='index.html'">← Accueil</button>
+    <button class="btn vider" onclick="viderPanier()">Vider le panier</button>
+    <button class="btn" onclick="validerAchat()">Valider l'achat</button>
+  </div>
+
+  <script>
+    const panier = JSON.parse(localStorage.getItem("panier")) || [];
+    const liste = document.getElementById("liste-panier");
+    const totalEl = document.getElementById("total");
+    let total = 0;
+
+    panier.forEach(item => {
+      const ligne = document.createElement("tr");
+      ligne.innerHTML = `<td>${item.nom}</td><td>${item.prix}</td>`;
+      liste.appendChild(ligne);
+      total += parseFloat(item.prix);
+    });
+
+    totalEl.textContent = "Total : " + total.toFixed(2) + " $";
+
+    function viderPanier() {
+      localStorage.removeItem("panier");
+      location.reload();
+    }
+
+    function afficherOptionsPaiement() {
+      const mode = document.getElementById("modePaiement").value;
+      const container = document.getElementById("optionsPaiement");
+      container.innerHTML = "";
+
+      if (mode === "mobile") {
+        container.innerHTML = `
+          <p>Choisir l'opérateur :</p>
+          <select>
+            <option>M-Pesa</option>
+            <option>Orange Money</option>
+            <option>Airtel Money</option>
+          </select>
+        `;
+      } else if (mode === "bancaire") {
+        container.innerHTML = `
+          <p>Choisir la carte :</p>
+          <select>
+            <option>Visa</option>
+            <option>Mastercard</option>
+          </select>
+        `;
+      }
+    }
+
+    function validerAchat() {
+      if (panier.length === 0) {
+        alert("Votre panier est vide !");
+      } else {
+        alert("Merci pour votre commande ! Elle est en cours de traitement.");
+        localStorage.removeItem("panier");
+        location.reload();
+      }
+    }
+  </script>
+</body>
+</html>

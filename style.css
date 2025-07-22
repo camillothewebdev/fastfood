@@ -1,0 +1,52 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #fefefe;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: #c0392b;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 15px 30px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  margin: 20px;
+}
+
+.chef {
+  width: 150px;
+  border-radius: 50%;
+  margin: 10px;
+}
+
+.plat {
+  display: inline-block;
+  margin: 20px;
+  transition: transform 0.3s;
+}
+
+.plat:hover {
+  transform: scale(1.1);
+}
+
+img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.panier {
+  font-size: 30px;
+  position: fixed;
+  top: 10px;
+  right: 15px;
+}

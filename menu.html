@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Menu FOOD ZONE</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; background: #fff; }
+
+    .plat {
+      display: inline-block;
+      margin: 20px;
+      transition: transform 0.3s;
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    .plat:hover {
+      transform: scale(1.05);
+    }
+    img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+    }
+    .panier {
+      font-size: 30px;
+      position: fixed;
+      top: 10px;
+      right: 15px;
+    }
+    .prix {
+      font-weight: bold;
+      margin: 8px 0;
+    }
+    .btn {
+      background-color: #ff4500;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #e03e00;
+    }
+  </style>
+</head>
+<body>
+  <div class="panier">🛒</div>
+  <h1>🍕 Notre Menu</h1>
+
+  <div class="plat">
+    <img src="./img/Image1.jpg"><br>
+    <p>Pizza Margherita</p>
+    <strong class="prix">Prix : 20$</strong><br>
+    <button class="btn" data-nom="Pizza Margherita" data-prix="20">Commander</button>
+  </div>
+
+  <div class="plat">
+    <img src="./img/Image2.jpg"><br>
+    <p>Sandwich Royal</p>
+    <strong class="prix">Prix : 3.5$</strong><br>
+    <button class="btn" data-nom="Sandwich Royal" data-prix="3.5">Commander</button>
+  </div>
+
+  <div class="plat">
+    <img src="./img/Image3.jpg"><br>
+    <p>Burger Cheese</p>
+    <strong class="prix">Prix : 5$</strong><br>
+    <button class="btn" data-nom="Burger Cheese" data-prix="5">Commander</button>
+  </div>
+
+  <div class="plat">
+    <img src="./img/Image4.jpg"><br>
+    <p>Frites + Sauce</p>
+    <strong class="prix">Prix : 4.2$</strong><br>
+    <button class="btn" data-nom="Frites + Sauce" data-prix="4.2">Commander</button>
+  </div>
+
+  <div class="plat">
+    <img src="./img/Image5.jpg"><br>
+    <p>Brochette Mixte</p>
+    <strong class="prix">Prix : 0.5$</strong><br>
+    <button class="btn" data-nom="Brochette Mixte" data-prix="0.5">Commander</button>
+  </div>
+
+  <div class="plat">
+    <img src="./img/Image6.jpg"><br>
+    <p>Jus Tropical</p>
+    <strong class="prix">Prix : 2$</strong><br>
+    <button class="btn" data-nom="Jus Tropical" data-prix="2">Commander</button>
+  </div>
+
+  <script>
+    const boutons = document.querySelectorAll(".btn");
+
+    boutons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const nom = btn.getAttribute("data-nom");
+        const prix = btn.getAttribute("data-prix");
+
+        let panier = JSON.parse(localStorage.getItem("panier")) || [];
+        panier.push({ nom, prix });
+        localStorage.setItem("panier", JSON.stringify(panier));
+
+        window.location.href = "panier.html";
+      });
+    });
+  </script>
+</body>
+</html>
